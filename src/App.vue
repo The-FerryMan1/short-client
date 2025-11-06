@@ -52,6 +52,7 @@ async function copy(text:string) {
 
 <template>
   <main class="flex flex-col justify-center item-center font-mono">
+    <h1 class="text-4xl text-center font-bold my-10">URL Shortener</h1>
     <form @submit.prevent="onSubmit" action="" class="flex flex-col justify-center item-center">
       <div class="flex justify-center item-center gap-5 p-2">
         <label for="" class="text-base p-2">URL:</label>
