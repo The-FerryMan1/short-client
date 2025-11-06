@@ -39,20 +39,42 @@ async function onSubmit() {
   }
 }
 
+
+async function copy(text:string) {
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch (error) {
+      console.log('Faild to copy text:' , error)
+    }
+}
+
 </script>
 
 <template>
-  <main>
-    <form @submit.prevent="onSubmit" action="">
-      <label for="">URL</label>
-      <input v-model="state.long_url" type="url" name="" id="">
-      <button>submit</button>
+  <main class="flex flex-col justify-center item-center font-mono">
+    <form @submit.prevent="onSubmit" action="" class="flex flex-col justify-center item-center">
+      <div class="flex justify-center item-center gap-5 p-2">
+        <label for="" class="text-base p-2">URL:</label>
+        <input v-model="state.long_url" type="url" name="" id="" placeholder="https://example.com"
+          class="border-b p-2 appearance-none rounded-t-md">
+        <button class="px-2 py-1 bg-blue-500 shadow-xl text-white rounded-md">submit</button>
+      </div>
     </form>
 
-    <div v-if="data">
-      <span v-if="data?.short_url">{{ `http://localhost:3000/api/${data.short_url}` }}</span>
-      <!-- <span v-if="data?.long_url">{{ data.long_url }}</span>
-      <span v-if="data?.created_at">{{ data.created_at}}</span> -->
+    <div v-if="data"
+      class="my-10 max-w-xl rounded-2xl shadow-xl bg-green-300 flex flex-col justify-center items-left p-5 gap-5">
+
+    <div class="flex items-center justify-between gap-2">
+     
+
+      <span v-if="data?.short_url" class="flex items-center shadow-lg w-full text-left  gap-2 p-2">{{ `http://localhost:3000/api/${data.short_url}` }}</span>
+
+      <button @click="copy(`http://localhost:3000/api/${data.short_url}`)" class="p-2 bg-blue-500 rounded-md text-white hover:opacity-45 active:scale-75">Copy</button>
+    </div>
+      <span v-if="data?.long_url" class="p-2 shadow-lg">{{ data.long_url }}</span>
+  
+
+      <span v-if="data?.created_at" class="p-2 shadow-lg">{{ data.created_at }}</span>
     </div>
   </main>
 </template>
